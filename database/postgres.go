@@ -30,7 +30,7 @@ func New(conf *cfgldr.DatabaseConfig) (db *gorm.DB, err error) {
 				return nil, err
 			}
 		} else {
-			err := db.Where("course_code = ?", b.Code).Updates(&b).Error
+			err := db.Where("code = ?", b.Code).Updates(&b).Error
 			if err != nil {
 				return nil, err
 			}
