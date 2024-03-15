@@ -28,7 +28,7 @@ type CorsConfig struct {
 }
 
 func LoadConfig() (*Config, error) {
-	err := godotenv.Load("../.env")
+	err := godotenv.Load(".env")
 	if err != nil {
 		log.Fatal().Msg("Error loading .env file")
 	}
