@@ -2,33 +2,18 @@ version: "3.9"
 
 services:
   db:
-    container_name: angryfern-db
     image: postgres:15.1-alpine3.17
-    ports:
-      - 5432:5432
+    container_name: angryfern-db
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: 1234
       POSTGRES_DB: angryfern_db
+    ports:
+      - 5432:5432
     volumes:
       - ./data/db:/var/lib/postgresql/data
     networks:
       - angryfern
 
-  backend:
-    container_name: angryfern-backend
-    build: .
-    ports:
-      - 3000:3000
-    environment:
-      - APP_PORT=3000
-      - APP_ENV=development
-      - APP_API_KEY=key
-      - DB_URL=postgres://root:1234@angryfern-db:5432/angryfern_db
-      - CORS_ORIGINS=http://localhost:3000
-    networks:
-      - angryfern
-
-
 networks:
-  angryfern: 
+  angryfern: {}
