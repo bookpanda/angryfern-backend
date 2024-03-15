@@ -1,0 +1,19 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:15.1-alpine3.17
+    container_name: angryfern-db
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: angryfern_db
+    ports:
+      - 5432:5432
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    networks:
+      - angryfern
+
+networks:
+  angryfern: {}
