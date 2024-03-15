@@ -1,5 +1,5 @@
--- Create "scoreboard" table
-CREATE TABLE "scoreboard" (
+-- Create "scores" table
+CREATE TABLE "scores" (
     "code" VARCHAR(10) NOT NULL,
     "created_at" TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
