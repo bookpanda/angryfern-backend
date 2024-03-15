@@ -1,60 +1,55 @@
 package cfgldr
 
 import (
-	"github.com/spf13/viper"
+	"os"
+
+	"github.com/joho/godotenv"
+	"github.com/rs/zerolog/log"
 )
 
 type Config struct {
-	DatabaseConfig DatabaseConfig
 	AppConfig      AppConfig
+	DatabaseConfig DatabaseConfig
 	CorsConfig     CorsConfig
 }
 
 type DatabaseConfig struct {
-	Url string `mapstructure:"URL"`
+	Url string
 }
 
 type AppConfig struct {
-	Port   string `mapstructure:"PORT"`
-	Env    string `mapstructure:"ENV"`
-	ApiKey string `mapstructure:"API_KEY"`
+	Port   string
+	Env    string
+	ApiKey string
 }
 
 type CorsConfig struct {
-	AllowOrigins string `mapstructure:"ORIGINS"`
+	AllowOrigins string
 }
 
 func LoadConfig() (*Config, error) {
-	dbCfgLdr := viper.New()
-	dbCfgLdr.SetEnvPrefix("DB")
-	dbCfgLdr.AutomaticEnv()
-	dbCfgLdr.AllowEmptyEnv(false)
-	dbConfig := DatabaseConfig{}
-	if err := dbCfgLdr.Unmarshal(&dbConfig); err != nil {
-		return nil, err
+	err := godotenv.Load("../.env")
+	if err != nil {
+		log.Fatal().Msg("Error loading .env file")
 	}
 
-	appCfgLdr := viper.New()
-	appCfgLdr.SetEnvPrefix("APP")
-	appCfgLdr.AutomaticEnv()
-	dbCfgLdr.AllowEmptyEnv(false)
-	appConfig := AppConfig{}
-	if err := appCfgLdr.Unmarshal(&appConfig); err != nil {
-		return nil, err
+	dbConfig := DatabaseConfig{
+		Url: os.Getenv("DB_URL"),
 	}
 
-	corsConfigLdr := viper.New()
-	corsConfigLdr.SetEnvPrefix("CORS")
-	corsConfigLdr.AutomaticEnv()
-	dbCfgLdr.AllowEmptyEnv(false)
-	corsConfig := CorsConfig{}
-	if err := corsConfigLdr.Unmarshal(&corsConfig); err != nil {
-		return nil, err
+	appConfig := AppConfig{
+		Port:   os.Getenv("APP_PORT"),
+		Env:    os.Getenv("APP_ENV"),
+		ApiKey: os.Getenv("APP_API_KEY"),
+	}
+
+	corsConfig := CorsConfig{
+		AllowOrigins: os.Getenv("CORS_ORIGINS"),
 	}
 
 	return &Config{
-		DatabaseConfig: dbConfig,
 		AppConfig:      appConfig,
+		DatabaseConfig: dbConfig,
 		CorsConfig:     corsConfig,
 	}, nil
 }
