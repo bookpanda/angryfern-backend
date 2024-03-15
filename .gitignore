@@ -3,3 +3,4 @@ data
 !.env.example
 data
 init.sql
+.vscode

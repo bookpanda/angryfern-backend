@@ -1,4 +1,4 @@
-INSERT INTO scores (code, country_name, click_count)
+INSERT INTO "scores" (code, country_name, click_count)
 VALUES ('BD', 'Bangladesh', 0),
     ('BE', 'Belgium', 0),
     ('BF', 'Burkina Faso', 0),
