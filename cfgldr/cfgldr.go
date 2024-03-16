@@ -27,7 +27,7 @@ type CorsConfig struct {
 }
 
 func LoadConfig() (*Config, error) {
-	if os.Getenv("CORS_ORIGINS") == "development" {
+	if os.Getenv("CORS_ORIGINS") == "" {
 		err := godotenv.Load(".env")
 		if err != nil {
 			return nil, err
