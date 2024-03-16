@@ -1,6 +1,9 @@
 dev:
 	go run cmd/main.go
 
+lint:
+	golangci-lint run
+
 inspect: 
 	atlas schema inspect \
 	--url "postgres://root:1234@localhost:5432/angryfern_db?search_path=public&sslmode=disable" \
