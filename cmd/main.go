@@ -36,7 +36,7 @@ func main() {
 	r := router.New(conf, corsHandler, appMiddleware)
 
 	r.GET("/hc", hcHandler.HealthCheck)
-	r.PUT("/scores/add", scoreHdr.Increment)
+	r.POST("/scores/add", scoreHdr.Increment)
 	r.GET("/scores", scoreHdr.GetAllScore)
 
 	if err := r.Run(fmt.Sprintf(":%v", conf.AppConfig.Port)); err != nil {
