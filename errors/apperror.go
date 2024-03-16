@@ -1,4 +1,4 @@
-package error
+package errors
 
 import "net/http"
 
@@ -14,4 +14,5 @@ func (e *AppError) Error() string {
 var (
 	InternalError = &AppError{"Internal error", http.StatusInternalServerError}
 	Unauthorized  = &AppError{"Unauthorized", http.StatusUnauthorized}
+	BadRequest    = &AppError{"Bad request", http.StatusBadRequest}
 )
