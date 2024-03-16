@@ -28,6 +28,7 @@ type handlerImpl struct {
 func (h *handlerImpl) Increment(c *gin.Context) {
 	var body dto.IncrementScoreRequest
 	if err := c.ShouldBindJSON(&body); err != nil {
+		h.logger.Error("failed to bind json", zap.Error(err))
 		errors.ResponseError(c, errors.BadRequest)
 	}
 
