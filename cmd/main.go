@@ -30,7 +30,7 @@ func main() {
 	corsHandler := cfgldr.MakeCorsConfig(conf)
 	r := router.New(conf, corsHandler)
 
-	r.PUT("/scores/:code", scoreHdr.Increment)
+	r.PUT("/scores", scoreHdr.Increment)
 	r.GET("/scores", scoreHdr.GetAllScore)
 
 	if err := r.Run(fmt.Sprintf(":%v", conf.AppConfig.Port)); err != nil {
