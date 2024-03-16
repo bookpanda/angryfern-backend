@@ -5,6 +5,7 @@ import (
 
 	"github.com/bookpanda/angryfern-backend/cfgldr"
 	"github.com/bookpanda/angryfern-backend/database"
+	healthcheck "github.com/bookpanda/angryfern-backend/internal/health_check"
 	"github.com/bookpanda/angryfern-backend/internal/middleware"
 	"github.com/bookpanda/angryfern-backend/internal/router"
 	"github.com/bookpanda/angryfern-backend/internal/score"
@@ -24,6 +25,8 @@ func main() {
 
 	logger := logger.New(conf)
 
+	hcHandler := healthcheck.NewHandler()
+
 	scoreRepo := score.NewRepository(db)
 	scoreSvc := score.NewService(scoreRepo, logger)
 	scoreHdr := score.NewHandler(scoreSvc, logger)
@@ -32,7 +35,8 @@ func main() {
 	appMiddleware := middleware.NewAppMiddleware(conf)
 	r := router.New(conf, corsHandler, appMiddleware)
 
-	r.PUT("/scores", scoreHdr.Increment)
+	r.GET("/hc", hcHandler.HealthCheck)
+	r.PUT("/scores/add", scoreHdr.Increment)
 	r.GET("/scores", scoreHdr.GetAllScore)
 
 	if err := r.Run(fmt.Sprintf(":%v", conf.AppConfig.Port)); err != nil {

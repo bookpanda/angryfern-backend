@@ -18,7 +18,7 @@ services:
 
   backend:
     container_name: angryfern-backend
-    image: ghcr.io/bookpanda/angryfern-backend:ae5154e7d241ecfaac1fc5763f5d602c52406225
+    image: ghcr.io/bookpanda/angryfern-backend:74a3a07bdc55a23ef63c4c8af3f29bc6c0513a31
     depends_on:
       - db
     restart: unless-stopped
