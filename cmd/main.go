@@ -5,6 +5,7 @@ import (
 
 	"github.com/bookpanda/angryfern-backend/cfgldr"
 	"github.com/bookpanda/angryfern-backend/database"
+	"github.com/bookpanda/angryfern-backend/internal/middleware"
 	"github.com/bookpanda/angryfern-backend/internal/router"
 	"github.com/bookpanda/angryfern-backend/internal/score"
 	"github.com/bookpanda/angryfern-backend/logger"
@@ -28,7 +29,8 @@ func main() {
 	scoreHdr := score.NewHandler(scoreSvc, logger)
 
 	corsHandler := cfgldr.MakeCorsConfig(conf)
-	r := router.New(conf, corsHandler)
+	appMiddleware := middleware.NewAppMiddleware(conf)
+	r := router.New(conf, corsHandler, appMiddleware)
 
 	r.PUT("/scores", scoreHdr.Increment)
 	r.GET("/scores", scoreHdr.GetAllScore)
