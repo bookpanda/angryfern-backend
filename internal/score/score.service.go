@@ -1,20 +1,24 @@
 package score
 
-import "github.com/bookpanda/angryfern-backend/internal/dto"
+import (
+	"github.com/bookpanda/angryfern-backend/internal/dto"
+	"go.uber.org/zap"
+)
 
 type Service interface {
 	Increment(req *dto.IncrementScoreRequest) (dto.IncrementScoreResponse, error)
 	GetAllScore() (dto.GetAllScoreResponse, error)
 }
 
-func NewService(repo Repository) Service {
+func NewService(repo Repository, logger *zap.Logger) Service {
 	return &serviceImpl{
-		repo,
+		repo, logger,
 	}
 }
 
 type serviceImpl struct {
-	repo Repository
+	repo   Repository
+	logger *zap.Logger
 }
 
 func (s *serviceImpl) Increment(req *dto.IncrementScoreRequest) (dto.IncrementScoreResponse, error) {
