@@ -4,8 +4,8 @@ import (
 	"log"
 
 	"github.com/bookpanda/angryfern-backend/cfgldr"
+	"github.com/bookpanda/angryfern-backend/database/seeds"
 	"github.com/bookpanda/angryfern-backend/internal/model"
-	"github.com/bookpanda/angryfern-backend/internal/model/seeds"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
