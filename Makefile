@@ -1,6 +1,9 @@
 dev:
 	go run cmd/main.go
 
+stage:
+	docker-compose -f docker-compose.stage.yaml up
+
 prod:
 	docker-compose -f docker-compose.prod.yaml up
 
