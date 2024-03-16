@@ -4,7 +4,6 @@ import (
 	"os"
 
 	"github.com/joho/godotenv"
-	"github.com/rs/zerolog/log"
 )
 
 type Config struct {
@@ -30,7 +29,7 @@ type CorsConfig struct {
 func LoadConfig() (*Config, error) {
 	err := godotenv.Load(".env")
 	if err != nil {
-		log.Fatal().Msg("Error loading .env file")
+		return nil, err
 	}
 
 	dbConfig := DatabaseConfig{

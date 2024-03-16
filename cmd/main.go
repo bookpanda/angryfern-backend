@@ -1,26 +1,20 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/bookpanda/angryfern-backend/cfgldr"
 	"github.com/bookpanda/angryfern-backend/database"
-
-	"github.com/rs/zerolog/log"
 )
 
 func main() {
 	conf, err := cfgldr.LoadConfig()
 	if err != nil {
-		log.Fatal().
-			Err(err).
-			Str("service", "file").
-			Msg("Failed to load config")
+		panic(fmt.Sprintf("Failed to load config: %v", err))
 	}
 
-	_, err = database.New(&conf.DatabaseConfig)
+	_, err = database.New(conf)
 	if err != nil {
-		log.Fatal().
-			Err(err).
-			Str("service", "file").
-			Msg("Failed to init postgres connection")
+		panic(fmt.Sprintf("Failed to load database: %v", err))
 	}
 }

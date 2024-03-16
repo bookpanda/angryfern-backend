@@ -11,8 +11,8 @@ import (
 	"gorm.io/gorm"
 )
 
-func New(conf *cfgldr.DatabaseConfig) (db *gorm.DB, err error) {
-	db, err = gorm.Open(postgres.Open(conf.Url), &gorm.Config{TranslateError: true})
+func New(conf *cfgldr.Config) (db *gorm.DB, err error) {
+	db, err = gorm.Open(postgres.Open(conf.DatabaseConfig.Url), &gorm.Config{TranslateError: true})
 	if err != nil {
 		return nil, err
 	}
