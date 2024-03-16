@@ -1,6 +1,9 @@
 dev:
 	go run cmd/main.go
 
+prod:
+	docker-compose -f docker-compose.prod.yaml up
+
 lint:
 	golangci-lint run
 
