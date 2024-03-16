@@ -5,7 +5,7 @@ import (
 	"go.uber.org/zap"
 )
 
-func InitLogger(conf *cfgldr.Config) *zap.Logger {
+func New(conf *cfgldr.Config) *zap.Logger {
 	var logger *zap.Logger
 
 	if conf.AppConfig.IsDevelopment() {
