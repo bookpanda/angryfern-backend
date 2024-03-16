@@ -21,7 +21,7 @@ type repositoryImpl struct {
 }
 
 func (r *repositoryImpl) Increment(code string, amount uint) error {
-	return r.db.Model(&model.Score{}).Where("code = ?", code).Update("count", gorm.Expr("count + ?", amount)).Error
+	return r.db.Model(&model.Score{}).Where("code = ?", code).Update("click_count", gorm.Expr("click_count + ?", amount)).Error
 }
 
 func (r *repositoryImpl) GetAll(result *[]model.Score) error {
