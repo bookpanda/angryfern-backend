@@ -14,6 +14,7 @@ func NewAppMiddleware(conf *cfgldr.Config) AppMidddleware {
 	return func(c *gin.Context) {
 		authHeader := c.GetHeader("Authorization")
 		if authHeader == "" {
+			errors.ResponseError(c, errors.Unauthorized)
 			c.Abort()
 			return
 		}
