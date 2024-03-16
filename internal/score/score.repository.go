@@ -6,7 +6,7 @@ import (
 )
 
 type Repository interface {
-	GetAll() ([]model.Score, error)
+	GetAll(result *[]model.Score) error
 	Increment(code string, amount uint) error
 }
 
@@ -24,8 +24,6 @@ func (r *repositoryImpl) Increment(code string, amount uint) error {
 	return r.db.Model(&model.Score{}).Where("code = ?", code).Update("count", gorm.Expr("count + ?", amount)).Error
 }
 
-func (r *repositoryImpl) GetAll() ([]model.Score, error) {
-	var scores []model.Score
-	err := r.db.Find(&scores).Error
-	return scores, err
+func (r *repositoryImpl) GetAll(result *[]model.Score) error {
+	return r.db.Find(&result).Error
 }
