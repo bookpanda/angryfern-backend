@@ -1,5 +1,7 @@
 # angryfern-backend
 
+Backend API for [angryfern-frontend](https://github.com/bookpanda/angryfern-frontend).
+
 ## Stack
 
 - golang
